@@ -64,3 +64,13 @@ thead {
   padding: var(--espaciado);
   border-radius: 8px;
 }
+
+.cupo-libre {
+  color: #1e8449;
+  font-weight: bold;
+}
+
+.cupo-lleno {
+  color: var(--color-error);
+  font-weight: bold;
+}

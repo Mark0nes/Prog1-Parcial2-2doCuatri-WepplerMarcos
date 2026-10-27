@@ -36,7 +36,15 @@ function renderizarTalleres(talleres) {
 
 async function cargarTalleres() {
   const estado = document.getElementById("estado-carga");
-  
+  try {
+    const talleres = await obtenerJson(`${API_BASE}/talleres`);
+    estado.textContent = "";
+    renderizarTalleres(talleres);
+  } catch (error) {
+    estado.textContent = "";
+    mostrarError("No se pudieron cargar los talleres. Verificá que la API esté corriendo.");
+    console.error(error);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", cargarTalleres);
