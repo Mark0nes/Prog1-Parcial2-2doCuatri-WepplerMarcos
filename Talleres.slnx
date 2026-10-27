@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Talleres.Api/Talleres.Api.csproj" />
+  <Project Path="Talleres.LogicaServicio/Talleres.LogicaServicio.csproj" />
+  <Project Path="Talleres.LogicaTest/Talleres.LogicaTest.csproj" />
+</Solution>
