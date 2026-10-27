@@ -63,6 +63,13 @@ public class InscripcionesController : ControllerBase
         {
             return NotFound(new { mensaje = ex.Message });
         }
-        
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { mensaje = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { mensaje = "Ocurrió un error inesperado", detalle = ex.Message });
+        }
     }
 }
