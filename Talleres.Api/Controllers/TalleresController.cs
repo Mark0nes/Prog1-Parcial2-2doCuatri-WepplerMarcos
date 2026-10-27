@@ -23,5 +23,9 @@ public class TalleresController : ControllerBase
             var respuesta = _servicio.ObtenerTalleresConCupos().Select(t => t.ATallerResponse());
             return Ok(respuesta);
         }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { mensaje = "Ocurrió un error inesperado", detalle = ex.Message });
+        }
     }
 }
