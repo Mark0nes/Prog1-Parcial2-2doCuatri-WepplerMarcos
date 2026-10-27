@@ -1,14 +1,17 @@
-using Talleres.LogicaServicio.Servicios;
+using Talleres.Logica;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 
-// CORS: lo necesita el frontend (Unidad 7) para consumir la API desde el navegador.
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton(new InscripcionService());
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("PermitirTodo", policy =>
+    options.AddPolicy("PermitirFrontend", policy =>
     {
         policy.AllowAnyOrigin()
               .AllowAnyMethod()
@@ -16,19 +19,16 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Inyección de dependencias (Unidad 6 - sección 13).
-// AddSingleton: una sola instancia para toda la aplicación.
-builder.Services.AddSingleton<ProductoService>();
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    // Documento OpenAPI en /openapi/v1.json
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-app.UseCors("PermitirTodo");
+app.UseCors("PermitirFrontend");
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
